@@ -1,40 +1,37 @@
-# https://github.com/spyridongeorgiou/gofaqyourself
+from tkinter import *
+fields = 'Die Frage:', 'Die Antwort:', 'Erfasst vom:', 'Datum:','Suche:'
 
-import tkinter as tk # Für GUI
-import pandas as pd # Für die Datenbank in JSON/CSV/XML für eins Entscheiden --> JSON
-
-Frage = str([]) # Frage in eine leere Liste und dann in str() konvertieren
-##FrageDict = {"Frage": Frage} # 
-FrageID = str([])
-##IDDict = {"ID": ID}
-faqdata = [
-    {"FrageID":FrageID,"Frage":Frage,}
-]
-
-fields = 'Frage', 'Antwort', 'Beantwortet durch', 'Eintrittsdatum'
 def fetch(entries):
    for entry in entries:
       field = entry[0]
       text  = entry[1].get()
       print('%s: "%s"' % (field, text)) 
+
 def makeform(root, fields):
    entries = []
    for field in fields:
-      row = tk.Frame(root)
-      lab = tk.Label(row, width=15, text=field, anchor='w')
-      ent = tk.Entry(row)
-      row.pack(side=tk.TOP, fill=tk.X, padx=5, pady=5)
-      lab.pack(side=tk.LEFT)
-      ent.pack(side=tk.RIGHT, expand=tk.YES, fill=tk.X)
+      row = Frame(root)
+      lab = Label(row, width=11, text=field, anchor='w')
+      ent = Entry(row)
+      row.pack(side=TOP, fill=X, padx=50, pady=7)
+      lab.pack(side=LEFT)
+      ent.pack(side=RIGHT, expand=YES, fill=X)
       entries.append((field, ent))
    return entries
-if __name__ == '__main__': # Führt nur den Code aus wenn dunder Methode __name__ den Wert "__main__" zurückgibt
-   root = tk.Tk()
+
+if __name__ == '__main__':
+   root = Tk()
    ents = makeform(root, fields)
    root.bind('<Return>', (lambda event, e=ents: fetch(e)))   
-   b1 = tk.Button(root, text='Speichern',
+   b1 = Button(root, text='speichern',
           command=(lambda e=ents: fetch(e)))
-   b1.pack(side=tk.LEFT, padx=5, pady=5)
-   b2 = tk.Button(root, text='Quit', command=root.quit)
-   b2.pack(side=tk.LEFT, padx=5, pady=5)
+   b1.pack(side=LEFT, padx=5, pady=5)
+   b2 = Button(root, text='suchen', command=root.quit)
+   b2.pack(side=LEFT, padx=5, pady=5)
+   b3 = Button(root, text='alle anzeigen', command=root.quit)
+   b3.pack(side=LEFT, padx=5, pady=5)
+   b4 = Button(root, text='löschen', command=root.quit)
+   b4.pack(side=LEFT, padx=5, pady=5)
+   b5 = Button(root, text='schließen', command=root.quit)
+   b5.pack(side=LEFT, padx=5, pady=5)
    root.mainloop()
